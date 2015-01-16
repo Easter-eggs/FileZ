@@ -33,7 +33,7 @@
   <p class="download-counter">
       <?php echo ($file->download_count == 0 ? __ ('Never downloaded') : (
                   $file->download_count == 1 ? __ ('Downloaded once') :
-                                               __r('Download %x% times', array(
+                                               __r('Downloaded %x% times', array(
                                                 'x' => (int) $file->download_count
       )))); // TODO ugly DIY plural ... ?>
   </p>

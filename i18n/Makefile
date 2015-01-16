@@ -14,7 +14,7 @@ $(DOMAIN).pot: $(SRC)
 	find ../ -name "*.php" ! -path "*.svn*" ! -path "*.bzr*" > ./potfiles.txt ;
 	@# Generate POT File (Template).
 	@# # `--keyword=tr' tells xgettext not to use the default _() function but your own tr() function.
-	xgettext --keyword=__ --from-code=utf-8 --default-domain=$(DOMAIN) --output=$(DOMAIN).pot --files-from=./potfiles.txt ;
+	xgettext --keyword=__r --keyword=__p --keyword=__ --from-code=utf-8 --default-domain=$(DOMAIN) --output=$(DOMAIN).pot --files-from=./potfiles.txt ;
 	@#
 	rm -f ./potfiles.txt
 

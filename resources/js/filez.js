@@ -351,9 +351,10 @@ var appendFile = function (html) {
     var files = $(settings.fileList);
     var cssClass = files.children ('li:first').hasClass ('odd') ? 'even' : 'odd' ;
 
-    files.prepend (
-        '<li class="file '+cssClass+'" style="display: none;">'+html+'</li>'
-    );
+    var li = $('<li class="file '+cssClass+'" style="display: none;">'+html+'</li>');
+
+    files.prepend ( li );
+    li.initFileActions();
     files.children ('li:first').slideDown (500);
 };
 

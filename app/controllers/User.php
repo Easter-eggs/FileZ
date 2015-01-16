@@ -64,6 +64,31 @@ class App_Controller_User extends Fz_Controller {
 
         if( 0 === count( $user->isValid() ) ) {
             $user->save ();
+
+            try {
+                option ('translate')->setLocale(fz_config_get('app','default_locale'));
+                option ('locale')->setLocale(fz_config_get('app','default_locale'));
+                $mail = $this->createMail();
+                $subject = __('[FileZ] Your new account');
+                $msg = __r('email_new_user_notif (%username%, %password%, %firstname%, %lastname%, %email%, %quota%)', array(
+                    'username'       => $user->username,
+                    'password'       => $_POST ['password'],
+                    'firstname'      => $user->firstname,
+                    'lastname'       => $user->lastname,
+                    'email'          => $user->email,
+                    'quota'          => $user->quota,
+                ));
+                $mail->setBodyText ($msg);
+                $mail->setSubject  ($subject);
+                $mail->addTo ($user->email);
+                $mail->send ();
+     
+                fz_log ('New account notification sent to '.$user->email, FZ_LOG_CRON);
+            }
+            catch (Exception $e) {
+                fz_log ('Fail to send new account notification by email to '.$user->email, FZ_LOG_CRON_ERROR);
+            }
+
             return redirect_to ('/admin/users');
         }
         else {

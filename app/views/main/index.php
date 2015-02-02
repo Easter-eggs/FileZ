@@ -73,7 +73,7 @@
       // Show password box on checkbox click
       $('input.password').hide();
       $('#use-password, #option-use-password label').click (function () { // IE quirk fix
-        if ($('#use-password').attr ('checked')) {
+        if ($('#use-password').prop ('checked')) {
             $('input.password').show().focus();
         } else {
             $('input.password').val('').hide();
